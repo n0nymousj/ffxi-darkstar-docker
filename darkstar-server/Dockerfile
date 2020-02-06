@@ -2,15 +2,26 @@ FROM ubuntu
 
 ENV DS_BRANCH=stable
 
+RUN apt-get update
+
+#RUN  apt-get install software-properties-common
+
+#RUN add-apt-repository -y ppa:ubuntu-toolchain-r/test
+
+#RUN apt-get install -y build-essential
+
+RUN apt-get install -y git libmysqlclient-dev libluajit-5.1-dev libzmq3-dev autoconf pkg-config python-pip libssl-dev
+
+RUN apt-get install -y nano curl
+
 RUN apt-get update && \
-  apt-get install -y build-essential git libmysqlclient-dev libluajit-5.1-dev \
-  libzmq3-dev autoconf pkg-config software-properties-common python-pip && \
-  apt-add-repository -y ppa:ubuntu-toolchain-r/test && \
-  apt-get update && \
   cd /usr/bin && \
   pip install supervisor && \
-  pip install supervisor-stdout && \
-  git clone --depth=1 -b ${DS_BRANCH} http://github.com/DarkstarProject/darkstar.git/ /darkstar && \
+  pip install supervisor-stdout
+
+RUN curl -Ss https://my-netdata.io/kickstart.sh --dont-wait
+
+RUN git clone --depth=1 -b ${DS_BRANCH} http://github.com/DarkstarProject/darkstar.git/ /darkstar && \
   cd /darkstar && \
   sh autogen.sh && \
   ./configure --enable-debug=gdb && \

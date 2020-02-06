@@ -6,8 +6,6 @@ services:
   darkstart-server:
     container_name: darkstar-server
     build: darkstar-server
-    labels:
-      container_group: FFXI
     links:
     - darkstar-db
     environment:
@@ -25,8 +23,6 @@ services:
   darkstar-db:
      container_name: darkstar-db
      build: darkstar-db
-     labels:
-       container_group: FFXI
      ports:
      - "23055:3306"
      volumes:

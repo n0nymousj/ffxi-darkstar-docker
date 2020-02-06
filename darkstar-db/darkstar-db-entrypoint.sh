@@ -19,4 +19,6 @@ if [[ -f /docker-entrypoint-initdb.d/zoneip.sql.tpl ]]; then
     mv /docker-entrypoint-initdb.d/zoneip.sql.tpl /docker-entrypoint-initdb.d/999-zoneip.sql
 fi
 
+UPDATE zone_settings SET zoneip = '192.168.1.240';
+
 docker-entrypoint.sh "$@"
